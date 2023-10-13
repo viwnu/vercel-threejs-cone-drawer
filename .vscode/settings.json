@@ -5,7 +5,7 @@
     "static/": true
   },
   "files.exclude": {
-    "**/node_modules": true,
+    "**/node_modules": false,
     "npm-debug.log*": true,
     "dist/": true,
     "static/": true
@@ -14,5 +14,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[json]": {
     "editor.formatOnSave": false
-  }
+  },
+  "eslint.workingDirectories": ["./ui", "./backend"]
 }

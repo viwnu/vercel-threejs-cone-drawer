@@ -1,10 +1,50 @@
 {
-  "version": "0.0.1",
+  "name": "threejs-cone-drawer-ui",
   "scripts": {
-    "build": "rimraf build && cp -R src build"
+    "start": "webpack serve --mode development",
+    "lint": "eslint --ext .ts src",
+    "build": "npm run lint && webpack --mode production"
   },
-  "license": "MIT",
   "devDependencies": {
-    "rimraf": "^5.0.5"
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.2",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@types/three": "^0.157.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "axios": "^1.5.1",
+    "babel-loader": "^9.1.2",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "express": "^4.18.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "source-map-loader": "^4.0.1",
+    "three": "^0.157.0",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "vercel": "^32.4.1",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.9",
+    "@mui/material": "^5.14.10",
+    "@mui/material-next": "^6.0.0-alpha.102",
+    "@types/three": "^0.157.0",
+    "react": "^18.2.0 || ^18.0.0",
+    "react-dom": "^12.2.0 || ^18.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^18.0.0",
+    "react-dom": "^12.2.0 || ^18.0.0"
   }
 }

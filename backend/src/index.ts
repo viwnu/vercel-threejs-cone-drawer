@@ -1,37 +1,32 @@
-import express from 'express';
-import { Request, Response } from 'express';
-import { StatusCodes, getReasonPhrase } from 'http-status-codes';
-import helmet from 'helmet';
-// import cors from "cors"; // for CORS setup, usage: app.use(cors());
+import express from 'express'
+import bodyParser from "body-parser"
+import cors from 'cors'
+// import { createProxyMiddleware } from 'http-proxy-middleware'
+import os from 'os'
+import calculateTriangles from './calculateTriangles'
 
-import dotenv from 'dotenv';
-dotenv.config(); // load variables from .env file
+const app = express()
+const port = 8000
 
-const port = process.env.PORT || 3030; // default port to listen
+app.use(cors({
+  exposedHeaders: '*'
+}))
 
-const app = express();
-app.use(express.json()); // parse json payload
-app.use(helmet());
+// app.use('/api', createProxyMiddleware({ target: `http://localhost:${port}`, changeOrigin: true }))
 
-app.get('/api', (req: Request, res: Response) => {
-  const randomId = `${Math.random()}`.slice(2);
-  const path = `/api/item/${randomId}`;
-  res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
-  res.end(`Hello! Fetch one item: <a href="${path}">${path}</a>`);
-});
 
-app.get('/api/item/:itemId', (req: Request, res: Response) => {
-  const { itemId } = req.params;
-  if (itemId.length <= 1) {
-    res.status(StatusCodes.BAD_REQUEST).send(getReasonPhrase(StatusCodes.BAD_REQUEST));
-  }
-  res.json({ itemId });
-});
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use('/', express.static('../dist'))
+
+app.post('/api', (req, res) => {
+  console.log('req.body: ', req.body)
+  const dataToSend = calculateTriangles(req.body)
+  res.send(dataToSend)
+})
 
 app.listen(port, () => {
-  // tslint:disable-next-line:no-console
-  console.log(`Server started at http://localhost:${port}`);
-});
-
-module.exports = app;
+  console.log(`Server running at http://${os.hostname()}:${port}/`)
+})
